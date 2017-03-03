@@ -8,7 +8,7 @@
  * Controller of the webApp
  */
 angular.module('webApp')
-  .controller('MainCtrl', function ($interval, CountNumber) {
+  .controller('MainCtrl', function ($interval, CountNumber, DataHelpers) {
     var vm             = this,
         startCounterAt = 10;
 
@@ -27,7 +27,7 @@ angular.module('webApp')
     function init() {
       CountNumber.index().then(function(res) {
         vm.numbers = res.data;
-        _startCounter();
+        _initCounter();
       })
     }
 
@@ -49,7 +49,7 @@ angular.module('webApp')
 
     function destroyNumber(id) {
       CountNumber.destroy(id).then(function() {
-        _removeByID(vm.numbers, id);
+        vm.numbers = DataHelpers.removeByID(vm.numbers, id);
       })
     }
 
@@ -60,7 +60,7 @@ angular.module('webApp')
     }
 
     /*----------  Privates  ----------*/
-    function _startCounter() {
+    function _initCounter() {
       $interval(function () {
         if (vm.currentCountNumber > 1) {
           vm.currentCountNumber--;
@@ -70,21 +70,7 @@ angular.module('webApp')
       }, 1000);
     };
 
-    // TODO: refactor #_getIndexByID and _removeByID to services helpers
-    function _getIndexByID (list, ID) {
-      var i;
-      angular.forEach(list, function (value, key) {
-        if (value.id === ID) {
-          i = key;
-        }
-      });
-      return i;
-    }
-
-    function _removeByID (list, ID) {
-      var i = _getIndexByID(list, ID);
-      list.splice(i, 1);
-    }
-
     init();
   });
+
+

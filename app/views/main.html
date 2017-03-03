@@ -3,29 +3,30 @@
     Click to save the number
   </p>
 
-  <!-- Action dropdown, for adding and delete all -->
-  <div class="btn-group">
-    <button type="button"
-            ng-disabled="!vm.currentCountNumber"
-            ng-click="vm.saveNumber(vm.currentCountNumber)"
-            class="btn action-btn btn-lg btn-success">
-      {{vm.currentCountNumber || 'Loading...'}}
-    </button>
+  <p>
+    <!-- Action dropdown, for adding and delete all -->
+    <div class="btn-group">
+      <button type="button"
+              ng-disabled="!vm.currentCountNumber"
+              ng-click="vm.saveNumber(vm.currentCountNumber)"
+              class="btn action-btn btn-lg btn-success">
+        {{vm.currentCountNumber || 'Loading...'}}
+      </button>
 
-    <!-- Dropdown -->
-    <button type="button"
-            ng-disabled="!vm.currentCountNumber"
-            class="btn action-btn btn-lg btn-success dropdown-toggle"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false">
-      <span class="caret"></span>
-      <span class="sr-only">Toggle Dropdown</span>
-    </button>
-    <ul class="dropdown-menu">
-      <li><a href ng-click="vm.destroyAllNumbers()">Delete all</a></li>
-    </ul>
-  </div>
+      <!-- Dropdown -->
+      <button type="button"
+              ng-disabled="!vm.currentCountNumber"
+              class="btn action-btn btn-lg btn-success dropdown-toggle"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false">
+        <span class="caret"></span>
+        <span class="sr-only">Toggle Dropdown</span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a href ng-click="vm.destroyAllNumbers()">Delete all</a></li>
+      </ul>
+    </div>
   </p>
 
   <!-- Table -->

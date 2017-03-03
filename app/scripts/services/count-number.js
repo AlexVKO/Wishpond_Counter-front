@@ -14,6 +14,8 @@ angular.module('webApp')
     return {
       index: index,
       save: save,
+      destroy: destroy,
+      destroyAll: destroyAll
     };
 
     function index() {
@@ -21,6 +23,15 @@ angular.module('webApp')
     }
 
     function save(number) {
-      return $http.post(RESOURCE_URL, {count_number: number})
+      return $http.post(RESOURCE_URL, {count_number: {value: number}})
     }
+
+    function destroy(id) {
+      return $http.delete(RESOURCE_URL + "/" + id )
+    }
+
+    function destroyAll() {
+      return $http.delete(RESOURCE_URL + "/destroy_all")
+    }
+
   });

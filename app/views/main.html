@@ -1,23 +1,78 @@
 <div class="jumbotron">
-  <h1>'Allo, 'Allo!</h1>
   <p class="lead">
-    <img src="images/yeoman.png" alt="I'm Yeoman"><br>
-    Always a pleasure scaffolding your apps.
+    Click for save the number
   </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#/">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
+
+  <!-- Action dropdown, for adding and delete all -->
+  <div class="btn-group">
+    <button type="button"
+            ng-disabled="!vm.currentCountNumber"
+            ng-click="vm.saveNumber(vm.currentCountNumber)"
+            class="btn action-btn btn-lg btn-success">
+      {{vm.currentCountNumber || 'Loading...'}}
+    </button>
+
+    <!-- Dropdown -->
+    <button type="button"
+            ng-disabled="!vm.currentCountNumber"
+            class="btn action-btn btn-lg btn-success dropdown-toggle"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false">
+      <span class="caret"></span>
+      <span class="sr-only">Toggle Dropdown</span>
+    </button>
+    <ul class="dropdown-menu">
+      <li><a href ng-click="vm.destroyAllNumbers()">Delete all</a></li>
+    </ul>
+  </div>
+  </p>
+
+  <!-- Table -->
+  <table class="table table-bordered table-hover" id="count-number-table">
+   <thead>
+     <tr>
+       <th class="text-center">Number</th>
+     </tr>
+   </thead>
+
+   <tbody>
+     <tr ng-repeat="number in vm.numbers track by $index">
+       <td>
+          {{number.value}}
+
+          <!-- Error msg and retry button -->
+          <a ng-show="number.errorMessage"
+             href
+             ng-init="btnLabel = 'Error!'"
+             ng-mouseenter="btnLabel = 'Try again!'"
+             ng-mouseleave="btnLabel = 'Error!'"
+             ng-click="vm.saveNumber(number.value, $index)"
+             class="btn-sm btn-danger btn-xs pull-right">
+
+            {{btnLabel}}
+          </a>
+
+          <!-- Destrou Button -->
+          <a ng-hide="number.errorMessage"
+             href
+             uib-popover="I appeared on mouse enter!"
+             ng-click="vm.destroyNumber(number.id)"
+             popover-trigger="'mouseenter'"
+             class="btn-sm text-danger pull-right">
+
+            <i class="glyphicon glyphicon-trash"></i>
+          </a>
+       </td>
+     </tr>
+
+     <!-- Placeholder where there are no values yet -->
+     <tr ng-show="vm.numbers.length === 0">
+       <td>Click on number to start saving!</td>
+     </tr>
+
+   </tbody>
+ </table>
 </div>
 
-<div class="row marketing">
-  <h4>HTML5 Boilerplate</h4>
-  <p>
-    HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.
-  </p>
 
-  <h4>Angular</h4>
-  <p>
-    AngularJS is a toolset for building the framework most suited to your application development.
-  </p>
-
-  <h4>Karma</h4>
-  <p>Spectacular Test Runner for JavaScript.</p>
-</div>
